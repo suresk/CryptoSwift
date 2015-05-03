@@ -17,7 +17,7 @@ class PaddingTests: XCTestCase {
         let padded = PKCS7().add(input, blockSize: 16)
         XCTAssertEqual(padded, expected, "PKCS7 failed")
         let clean = PKCS7().remove(padded)
-        XCTAssertEqual(clean, input, "PKCS7 failed")
+        XCTAssertEqual(clean!, input, "PKCS7 failed")
     }
     
     func testPKCS7_1() {
@@ -26,7 +26,7 @@ class PaddingTests: XCTestCase {
         let padded = PKCS7().add(input, blockSize: 16)
         XCTAssertEqual(padded, expected, "PKCS7 failed")
         let clean = PKCS7().remove(padded)
-        XCTAssertEqual(clean, input, "PKCS7 failed")
+        XCTAssertEqual(clean!, input, "PKCS7 failed")
     }
     
     func testPKCS7_2() {
@@ -35,6 +35,6 @@ class PaddingTests: XCTestCase {
         let padded = PKCS7().add(input, blockSize: 16)
         XCTAssertEqual(padded, expected, "PKCS7 failed")
         let clean = PKCS7().remove(padded)
-        XCTAssertEqual(clean, input, "PKCS7 failed")
+        XCTAssertEqual(clean!, input, "PKCS7 failed")
     }
 }

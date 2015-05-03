@@ -34,10 +34,25 @@ public struct PKCS7: Padding {
         return withPadding
     }
     
-    public func remove(bytes: [UInt8], blockSize:Int? = nil) -> [UInt8] {
-        var padding = Int(bytes.last!) // last byte
+    public func remove(bytes: [UInt8], blockSize:Int? = nil) -> [UInt8]? {
+        var paddingByte = bytes.last!
+        var padding = Int(paddingByte) // last byte
         
         if padding >= 1 { //TODO: need test for that, what about empty padding
+            // First, what if the padding is equal to or longer than the output, obvious error
+            if(padding >= bytes.count) {
+                return nil
+            }
+            
+            let paddingBytes = Array(bytes[padding..<bytes.count])
+            
+            for b: UInt8 in paddingBytes {
+                if(b != paddingByte) {
+                    print("Padding bytes are unequal")
+                    return nil
+                }
+            }
+            
             return Array(bytes[0..<(bytes.count - padding)])
         }
         return bytes
